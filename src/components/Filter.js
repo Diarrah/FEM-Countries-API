@@ -18,8 +18,8 @@ const Filter = () => {
     return (
         <div className="filter__box">
             <button className="filter__box__deployment" onClick={() => showFilterOptions()}>
-            <span>{filterByRegion !== '' ? `${filterByRegion}` : `Filter By Region`}</span>
-                <i className="fas fa-chevron-down"></i>
+                <span>{filterByRegion !== '' ? `${filterByRegion}` : `Filter By Region`}</span>
+                <i className="fas fa-chevron-down" />
             </button>
             <ul className={`filter__box__list ${droppedDown ? 'active' : ''}`}>
                 {filterByRegion && <li className="filter__box__list__item" data-region="">All</li>}

@@ -15,7 +15,6 @@ const CountriesContextProvider = (props) => {
 
     const getCountries = async (allCountriesAPI) => {
         setLoading(true)
-
         try {
             let result = await (await fetch(allCountriesAPI)).json();
             setAllCountries([...result])
@@ -28,7 +27,7 @@ const CountriesContextProvider = (props) => {
     const formatNumber = (number) => {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       };
-
+      
     return (
         <CountriesContext.Provider
             value={{

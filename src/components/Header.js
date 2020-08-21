@@ -7,7 +7,7 @@ const Header = () => {
 
     const themeToggle = () => {
         setTheme(
-            body.parentElement.dataset.theme === 'light'
+            theme === 'light'
                 ? body.parentElement.dataset.theme = 'dark'
                 : body.parentElement.dataset.theme = 'light'
         )
