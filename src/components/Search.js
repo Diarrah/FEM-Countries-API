@@ -9,6 +9,7 @@ const Search = () => {
             <input 
                 className="search__input--bar"
                 placeholder="Search for a country..."
+                aria-label="Input to search for any country by name"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />    
