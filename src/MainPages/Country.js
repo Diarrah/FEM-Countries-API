@@ -3,7 +3,7 @@ import { CountriesContext } from '../contextHelpers/countryContext';
 import { Spinner } from '../components';
 import { Link } from 'react-router-dom';
 
-const Country = ({ match }) => {
+const Country = ({ match, history }) => {
     const { allCountries, loading, formatNumber } = useContext(CountriesContext);
     
     const country = allCountries.find(
@@ -17,12 +17,17 @@ const Country = ({ match }) => {
             {borderCountry[0].name}
           </Link>
         );
-      };
-
+    };
 
     return (
         <>
         {loading && <Spinner />}
+        <button className="country__page__back__btn" onClick={() => history.goBack()}>
+            <div className="country__page__back__btn--inner">
+                <span>Back</span> 
+                <i className="fas fa-arrow-left"></i>
+            </div>
+        </button>
         {country && (
             <div className="country__page">
                 <div className="country__page__image__container">
@@ -53,22 +58,26 @@ const Country = ({ match }) => {
                                 Top Level Domain: {" "} <span>{country.topLevelDomain}</span>
                             </li>
                             <li className="country__page__textbox__metadata--currency">
-                                Currencies: {" "} 
+                                {country.currencies.length > 1 ? `Currencies: ` : `Currency: `}
                                 {country.currencies
                                     .filter(({name}) => name !== null)
-                                    .map(({name, symbol, code}) => (
+                                    .map(({name, symbol, code}, i) => (
                                         <span key={name}>
                                             <span className="country__page__textbox__metadata--currency-symbol">{symbol && `${symbol} `}</span>
                                             <span className="country__page__textbox__metadata--currency-name">{name}</span>
-                                            <span className="country__page__textbox__metadata--currency-code">{code && ` (${code}) `}</span>
+                                            <span className="country__page__textbox__metadata--currency-code">
+                                                {code && country.currencies.length === i + 1 ? ` (${code}) ` : ` (${(code)}), `}
+                                            </span>
                                         </span>  
                                 ))}
                             </li>
                             <li className="country__page__textbox__metadata--languages">
-                                Languages: {" "} 
-                                {country.languages.map(({name}) => (
+                                {country.languages.length > 1 ? `Languages: ` : `Language: `} 
+                                {country.languages.map(({name}, i) => (
                                     <span key={name}>
-                                        <span className="country__page__textbox__metadata--languages-lang">{name}</span>
+                                        <span className="country__page__textbox__metadata--languages-lang">
+                                            {country.languages.length === i + 1 ? `${name} ` : `${name}, `}
+                                        </span>
                                     </span>
                                 ))}
                             </li>
@@ -76,14 +85,15 @@ const Country = ({ match }) => {
                     </div>
                     <div className="country__page__textbox__borders">
                     <ul className="country__page__textbox__borders--list">
-                        Borders: {" "}
-                        <span>
-                            {country.borders.map(border => (
+                        <li className="country__page__textbox__borders--list-title">Border Countries: {" "}</li>
+                        {country.borders.length > 0 
+                            ? (country.borders.map(border => (
                                 <li className="country__page__textbox__border" key={border}>
-                                    {countryBorderFullName(border)}
+                                    <span>{countryBorderFullName(border)}</span>
                                 </li>
-                            ))} 
-                        </span>
+                            )))
+                            : <li className="no__borders">None</li>
+                        }
                     </ul>
                     </div>
                 </div>
