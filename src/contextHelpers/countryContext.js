@@ -3,14 +3,13 @@ import React, { useState, useEffect, createContext } from 'react';
 export const CountriesContext = createContext();
 
 const CountriesContextProvider = (props) => {
-    const API_BASE_URL = "https://restcountries.eu/rest/v2/";
     const [allCountries, setAllCountries] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [filterByRegion, setFilterByRegion] = useState('');
 
     useEffect(() => {
-        getCountries(`${API_BASE_URL}all`)
+        getCountries('https://restcountries.eu/rest/v2/all')
     }, [])
 
     const getCountries = async (allCountriesAPI) => {
@@ -31,11 +30,8 @@ const CountriesContextProvider = (props) => {
     return (
         <CountriesContext.Provider
             value={{
-                API_BASE_URL,
                 allCountries,
-                setAllCountries,
                 loading,
-                setLoading,
                 searchTerm,
                 setSearchTerm,
                 filterByRegion,
