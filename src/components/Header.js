@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { CountriesContext } from '../contextHelpers/countryContext';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-    let htmlTag = document.body.parentElement;
+    const { setSearchTerm, setFilterByRegion } = useContext(CountriesContext);
     const [theme, setTheme] = useState(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+    const htmlTag = document.body.parentElement;
 
     useEffect(() => {
         if (!localStorage.getItem('theme')) {
@@ -14,7 +16,6 @@ const Header = () => {
             htmlTag.setAttribute('data-theme', localStorage.getItem('theme'))
         }
     }, [])
-
 
     const themeToggle = () => {
         if (theme !== 'light') {
@@ -28,9 +29,14 @@ const Header = () => {
         }
     }
 
+    const resetSearch = () => {
+        setFilterByRegion('')
+        setSearchTerm('')
+    }
+
     return (
         <div className="header">
-            <Link to="/">
+            <Link to="/" onClick={() => resetSearch()}>
                 <h1 className="header__heading">Where in the world?</h1>
             </Link>
             <button className="header__theme__toggle" onClick={() => themeToggle()}>
