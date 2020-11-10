@@ -5,6 +5,7 @@ export const CountriesContext = createContext();
 const CountriesContextProvider = (props) => {
     const [allCountries, setAllCountries] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState({ error: false });
     const [searchTerm, setSearchTerm] = useState('');
     const [filterByRegion, setFilterByRegion] = useState('');
 
@@ -14,11 +15,18 @@ const CountriesContextProvider = (props) => {
 
     const getCountries = async (allCountriesAPI) => {
         setLoading(true)
-        try {
-            let result = await (await fetch(allCountriesAPI)).json();
+
+        let returned = await (await fetch(allCountriesAPI));
+
+        if (returned.ok) {
+            let result = await returned.json();
             setAllCountries([...result])
-        } catch(error) {
-            console.log(error)
+        } else {
+            setError({
+                error: true,
+                statusCode: returned.status,
+                statusText: returned.statusText
+            })
         }
         setLoading(false)
     }
@@ -27,15 +35,15 @@ const CountriesContextProvider = (props) => {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       };
       
+      
     return (
         <CountriesContext.Provider
             value={{
                 allCountries,
                 loading,
-                searchTerm,
-                setSearchTerm,
-                filterByRegion,
-                setFilterByRegion,
+                error,
+                searchTerm, setSearchTerm,
+                filterByRegion, setFilterByRegion,
                 formatNumber,
             }}
         >
