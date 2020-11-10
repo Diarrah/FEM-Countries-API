@@ -1,16 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-    let { body } = document;
-    const [theme, setTheme] = useState(body.parentElement.dataset.theme);
+    let htmlTag = document.body.parentElement;
+    const [theme, setTheme] = useState(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+
+    useEffect(() => {
+        if (!localStorage.getItem('theme')) {
+            setTheme('light')
+            localStorage.setItem('theme', 'light')
+            htmlTag.setAttribute('data-theme', 'light')
+        } else {
+            htmlTag.setAttribute('data-theme', localStorage.getItem('theme'))
+        }
+    }, [])
+
 
     const themeToggle = () => {
-        setTheme(
-            theme === 'light'
-                ? body.parentElement.dataset.theme = 'dark'
-                : body.parentElement.dataset.theme = 'light'
-        )
+        if (theme !== 'light') {
+            localStorage.setItem('theme', 'light')
+            htmlTag.setAttribute('data-theme', localStorage.getItem('theme'))
+            setTheme('light')
+        } else {
+            localStorage.setItem('theme', 'dark')
+            htmlTag.setAttribute('data-theme', localStorage.getItem('theme'))
+            setTheme('dark')
+        }
     }
 
     return (
