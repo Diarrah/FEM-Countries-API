@@ -15,8 +15,9 @@
         padding: 10px 0 10px 35px;
         transition: transform .3s ease;
 
-        .fas.fa-arrow-left {
-            margin-right: 45px;
+        img {
+            margin-right: 42px;
+            height: 14px; width: 14px;
         }
         
         &:hover {

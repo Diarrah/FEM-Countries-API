@@ -19,8 +19,19 @@
     }
 
     &__theme__toggle {
-        i { margin-right: 10px }
-        span { text-transform: capitalize }
+        display: flex;
+        align-items: center;
+        
+
+        img {     
+            height: 22px; width: 22px;
+            
+            &.moon {
+                height: 19px; width: 19px;
+                transform: rotateZ(-30deg) translateY(-2px);
+            }
+        }
+        span { margin-left: 10px }
     }
 
     @media screen and (max-width: 400px) {
