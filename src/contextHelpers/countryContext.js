@@ -8,6 +8,7 @@ const CountriesContextProvider = (props) => {
     const [error, setError] = useState({ error: false });
     const [searchTerm, setSearchTerm] = useState('');
     const [filterByRegion, setFilterByRegion] = useState('');
+    const [theme, setTheme] = useState(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
 
     useEffect(() => {
         getCountries('https://restcountries.eu/rest/v2/all')
@@ -44,6 +45,7 @@ const CountriesContextProvider = (props) => {
                 error,
                 searchTerm, setSearchTerm,
                 filterByRegion, setFilterByRegion,
+                theme, setTheme,
                 formatNumber,
             }}
         >
