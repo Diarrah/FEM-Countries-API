@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { CountriesContext } from '../contextHelpers/countryContext';
 import { Link } from 'react-router-dom';
+import sun from '../images/sun.svg';
+import moon from '../images/moon.svg';
 
 const Header = () => {
-    const { setSearchTerm, setFilterByRegion } = useContext(CountriesContext);
-    const [theme, setTheme] = useState(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+    const { theme, setTheme, setSearchTerm, setFilterByRegion } = useContext(CountriesContext);
     const htmlTag = document.body.parentElement;
 
     useEffect(() => {
@@ -40,7 +41,11 @@ const Header = () => {
                 <h1 className="header__heading">Where in the world?</h1>
             </Link>
             <button className="header__theme__toggle" onClick={() => themeToggle()}>
-                <i className={theme === 'light' ? `far fa-moon` : `far fa-lightbulb`} aria-hidden="true" />
+                <img 
+                    className={`${theme === 'light' ? 'moon' : 'sun'}`}
+                    src={`${theme === 'light' ? moon : sun}`} 
+                    alt={`${theme === 'light' ? 'Moon' : 'Sun'} icon`} 
+                />
                 <span className="header__theme__toggle--mode">{theme === 'light' ? `Dark` : `Light`} Mode</span>
             </button>
         </div>

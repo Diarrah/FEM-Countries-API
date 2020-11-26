@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { CountriesContext } from '../contextHelpers/countryContext';
+import search from '../images/search-dark.svg';
+import search_light from '../images/search-light.svg';
 
 const Search = () => {
-    const { searchTerm, setSearchTerm } = useContext(CountriesContext);
+    const { theme, searchTerm, setSearchTerm } = useContext(CountriesContext);
 
     return (
         <div className="search__input">
@@ -13,7 +15,10 @@ const Search = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />    
-            <i className="fa fa-search" aria-hidden="true" />
+            <img 
+                src={`${theme === 'light' ? search : search_light}`} 
+                alt={`${theme === 'light' ? 'Sun ' : 'Moon '}icon`} 
+            />
         </div>
     )
 }

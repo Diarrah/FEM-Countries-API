@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { CountriesContext } from '../contextHelpers/countryContext';
+import chevron from '../images/chevron-black.svg';
+import chevron_white from '../images/chevron-white.svg';
 
 const Filter = () => {
-    const { filterByRegion, setFilterByRegion } = useContext(CountriesContext);
+    const { theme, filterByRegion, setFilterByRegion } = useContext(CountriesContext);
     const [droppedDown, setDroppedDown] = useState(false);
     const listItem = [...document.querySelectorAll('.filter__box__list__item')]; 
 
@@ -10,7 +12,7 @@ const Filter = () => {
         setDroppedDown(!droppedDown)
     }
 
-    listItem.forEach(region => region.addEventListener('click', function(e) {
+    listItem.forEach(region => region.addEventListener('click', (e) => {
         setFilterByRegion(e.target.dataset.region)
         setDroppedDown(!droppedDown)
     }));
@@ -19,7 +21,7 @@ const Filter = () => {
         <div className="filter__box">
             <button className="filter__box__deployment" onClick={() => showFilterOptions()}>
                 <span>{filterByRegion !== '' ? `${filterByRegion}` : `Filter By Region`}</span>
-                <i className="fas fa-chevron-down" />
+                <img src={`${theme === 'light' ? chevron : chevron_white}`} alt="" />
             </button>
             <ul className={`filter__box__list ${droppedDown ? 'active' : ''}`}>
                 {filterByRegion && <li className="filter__box__list__item" data-region="">All</li>}
