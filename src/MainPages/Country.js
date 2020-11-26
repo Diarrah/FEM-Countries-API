@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { CountriesContext } from '../contextHelpers/countryContext';
 import { Spinner } from '../components';
 import { Link } from 'react-router-dom';
+import arrow from '../images/arrow-black.svg';
+import arrow_white from '../images/arrow-white.svg';
 
 const Country = ({ match, history }) => {
-    const { allCountries, loading, formatNumber } = useContext(CountriesContext);
+    const { theme, allCountries, loading, formatNumber } = useContext(CountriesContext);
     
-    const country = allCountries.find(
-        (country) => country.alpha3Code === match.params.countryCode
-    );
+    const country = allCountries.find(country => country.alpha3Code === match.params.countryCode);
 
     const countryBorderFullName = (border) => {
         const borderCountry = [...allCountries].filter(({ alpha3Code }) => alpha3Code === border);
@@ -25,7 +25,7 @@ const Country = ({ match, history }) => {
         <button className="country__page__back__btn" onClick={() => history.goBack()}>
             <div className="country__page__back__btn--inner">
                 <span>Back</span> 
-                <i className="fas fa-arrow-left"></i>
+                <img src={`${theme === 'light' ? arrow : arrow_white}`} alt ="Arrow to go back to main page"/>
             </div>
         </button>
         {country && (
